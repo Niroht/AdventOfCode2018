@@ -9,6 +9,8 @@ public class Main {
 		solveDayThree();
 		
 		solveDayFour();
+		
+		solveDayFive();
 	}
 	
 	private static void solveDayThree() {
@@ -26,5 +28,12 @@ public class Main {
 		List<String> input = Arrays.asList(Input.DAY_FOUR.split(";"));
 		
 		System.out.println(GuardScheduleReader.multiplyBestGuardAndMinute(input));
+		System.out.println(GuardScheduleReader.multiplyMostConsistentGuardAndMinute(input));
+	}
+	
+	private static void solveDayFive() {
+		System.out.println("Day Five");
+		
+		System.out.println(PolymerReactor.findSizeOfCollapsedPolymer(Input.DAY_FIVE));
 	}
 }

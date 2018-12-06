@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 public class GuardScheduleReader {
 	public static int multiplyBestGuardAndMinute(List<String> guardRecords) {
 		Map<Integer, List<Integer>> guardSleepTimes = parseGuardSleepTimes(guardRecords);
@@ -28,8 +30,45 @@ public class GuardScheduleReader {
 					return 0;
 		});
 		
+		Entry<Integer, Integer> mostCommonMinuteAndOccurrences = getMostCommonMinuteAndOccurrences(longestSleepingGuardAndTimes.getValue());
+		
+		Integer mostCommonMinute = mostCommonMinuteAndOccurrences.getKey();
+		
+		return longestSleepingGuardAndTimes.getKey() * mostCommonMinute;
+	}
+	
+	public static int multiplyMostConsistentGuardAndMinute(List<String> guardRecords) {
+		Map<Integer, List<Integer>> guardSleepTimes = parseGuardSleepTimes(guardRecords);
+		
+		int maxOccurrences = 0;
+		int minuteAtMaxOccurrences = 0;
+		int guardIdWithMostOccurrences = 0;
+		
+		for (Entry<Integer, List<Integer>> guardSleepTime : guardSleepTimes.entrySet()) {
+			if (CollectionUtils.isEmpty(guardSleepTime.getValue())){
+				continue;
+			}
+			
+			Entry<Integer, Integer> mostCommonMinuteAndOccurrences = getMostCommonMinuteAndOccurrences(guardSleepTime.getValue());
+			
+			if (mostCommonMinuteAndOccurrences.getValue() <= maxOccurrences) {
+				continue;
+			}
+			
+			maxOccurrences = mostCommonMinuteAndOccurrences.getValue();
+			minuteAtMaxOccurrences = mostCommonMinuteAndOccurrences.getKey();
+			guardIdWithMostOccurrences = guardSleepTime.getKey();
+		}
+		
+		
+		
+		return guardIdWithMostOccurrences * minuteAtMaxOccurrences;
+	}
+	
+	private static Entry<Integer, Integer> getMostCommonMinuteAndOccurrences(
+			List<Integer> sleepTimes) {
 		Map<Integer, Integer> minuteCounts = new HashMap<>();
-		for(int minute : longestSleepingGuardAndTimes.getValue()) {
+		for(int minute : sleepTimes) {
 			if (!minuteCounts.containsKey(minute)) {
 				minuteCounts.put(minute, 1);
 			} else {
@@ -37,7 +76,7 @@ public class GuardScheduleReader {
 			}
 		}
 		
-		Integer mostCommonMinute = Collections.max(
+		return Collections.max(
 				minuteCounts.entrySet(),
 				(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) -> {
 					if (o1.getValue() > o2.getValue()) {
@@ -47,9 +86,7 @@ public class GuardScheduleReader {
 						return -1;
 					}
 					return 0;
-				}).getKey();
-		
-		return longestSleepingGuardAndTimes.getKey() * mostCommonMinute;
+				});
 	}
 
 	private static Map<Integer, List<Integer>> parseGuardSleepTimes(List<String> guardRecords) {
