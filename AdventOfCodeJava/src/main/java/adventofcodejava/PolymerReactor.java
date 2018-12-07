@@ -1,19 +1,58 @@
 package adventofcodejava;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import adventofcodejava.utils.AdventStringUtils;
 
 public class PolymerReactor {
 	public static int findSizeOfCollapsedPolymer(String polymer) {
-		StringBuilder workingPolymer = new StringBuilder(polymer);
-		
-		String reactedPolymer = collapsePolymer(workingPolymer);
+		String reactedPolymer = collapsePolymer(polymer);
 		
 		return reactedPolymer.length();
 	}
 	
-	private static String collapsePolymer(StringBuilder workingPolymer) {
+	public static int removeOptimumUnitTypeThenCollapse(String polymer) {
+		Set<Character> uniqueCharacters = new TreeSet<>();
+		for(char character : polymer.toCharArray()) {
+			uniqueCharacters.add(character);
+		}
+		
+		Integer lowestPolymerCount = null;
+		
+		for(Character character: uniqueCharacters) {
+			String strippedString = polymer.replaceAll("(?i)" + character.toString(), "");
+			
+			int polymerCount = collapsePolymer(strippedString).length();
+			if (lowestPolymerCount == null || lowestPolymerCount > polymerCount) {
+				lowestPolymerCount = polymerCount;
+			}
+		}
+
+		return lowestPolymerCount;
+	}
+	
+	private static String collapsePolymer(String workingPolymer) {
+		String reactedPolymer = workingPolymer;
+		int previousStepLength = workingPolymer.length() + 1;
+		
+		while (reactedPolymer.length() != previousStepLength) {
+			
+			previousStepLength = StringUtils.length(reactedPolymer);
+			
+			reactedPolymer = runSingleReaction(reactedPolymer);
+		}
+		
+		return reactedPolymer;
+	}
+
+	private static String runSingleReaction(String workingPolymer) {
 		StringBuilder reactedPolymer = new StringBuilder();
 		
 		for (int i = 0; i < workingPolymer.length(); i++) {
@@ -25,10 +64,6 @@ public class PolymerReactor {
 			}
 		}
 		
-		if (reactedPolymer.length() == 0 || reactedPolymer.length() == workingPolymer.length()) {
-			return reactedPolymer.toString();
-		}
-		
-		return collapsePolymer(reactedPolymer);
+		return reactedPolymer.toString();
 	}
 }

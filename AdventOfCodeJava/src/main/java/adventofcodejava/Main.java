@@ -35,5 +35,8 @@ public class Main {
 		System.out.println("Day Five");
 		
 		System.out.println(PolymerReactor.findSizeOfCollapsedPolymer(Input.DAY_FIVE));
+		
+		System.out.println("Part 2 Disabled - need to optimize!");
+		//System.out.println(PolymerReactor.removeOptimumUnitTypeThenCollapse(Input.DAY_FIVE));
 	}
 }

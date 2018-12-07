@@ -64,4 +64,16 @@ public class PolymerReactorTest {
 		// assert
 		assertEquals(10, result);
 	}
+	
+	@Test
+	public void removeOptimumUnitTypeThenCollapse_complexExample() {
+		// arrange
+		String input = "dabAcCaCBAcCcaDA";
+		
+		// act
+		int result = PolymerReactor.removeOptimumUnitTypeThenCollapse(input);
+		
+		// assert
+		assertEquals(4, result);
+	}
 }

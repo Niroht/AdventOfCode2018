@@ -3,6 +3,7 @@ package adventofcodejava.utils;
 import org.apache.commons.lang3.StringUtils;
 
 public class AdventStringUtils {
+	
 	public static boolean equalsOppositeCase(String string1, String string2) {
 		// Filter out strings that are completely different
 		if (!StringUtils.equalsIgnoreCase(string1, string2)) {
