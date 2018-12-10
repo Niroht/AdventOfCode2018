@@ -1,7 +1,9 @@
 package adventofcodejava;
 
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -11,6 +13,8 @@ public class Main {
 		solveDayFour();
 		
 		solveDayFive();
+		
+		solveDaySix();
 	}
 	
 	private static void solveDayThree() {
@@ -38,5 +42,19 @@ public class Main {
 		
 		System.out.println("Part 2 Disabled - need to optimize!");
 		//System.out.println(PolymerReactor.removeOptimumUnitTypeThenCollapse(Input.DAY_FIVE));
+	}
+	
+	private static void solveDaySix() {
+		System.out.println("Day Six");
+		
+		List<String> inputString = Arrays.asList(Input.DAY_SIX.split(";"));
+		
+		List<Point> inputPoints = inputString.stream().map(x -> {
+			String[] parts = x.split(",");
+			return new Point(Integer.parseInt(parts[0].trim()), Integer.parseInt(parts[1].trim()));
+		}).collect(Collectors.toList());
+		
+		System.out.println(DistanceCalculator.findSizeOfLargestNonInfiniteArea(inputPoints));
+		System.out.println(DistanceCalculator.findAreaWithinRangeOfAllPoints(inputPoints, 10000));
 	}
 }
