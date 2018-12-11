@@ -15,6 +15,8 @@ public class Main {
 		solveDayFive();
 		
 		solveDaySix();
+		
+		solveDaySeven();
 	}
 	
 	private static void solveDayThree() {
@@ -56,5 +58,14 @@ public class Main {
 		
 		System.out.println(DistanceCalculator.findSizeOfLargestNonInfiniteArea(inputPoints));
 		System.out.println(DistanceCalculator.findAreaWithinRangeOfAllPoints(inputPoints, 10000));
+	}
+	
+	private static void solveDaySeven() {
+		System.out.println("Day Seven");
+		
+		List<String> inputString = Arrays.asList(Input.DAY_SEVEN.split(";"));
+		
+		System.out.println(StepReader.findOrderOfSteps(inputString));
+		System.out.println(StepReader.findExecutionTime(inputString, 60, 5));
 	}
 }
