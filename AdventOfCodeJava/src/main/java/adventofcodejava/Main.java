@@ -17,6 +17,10 @@ public class Main {
 		solveDaySix();
 		
 		solveDaySeven();
+		
+		solveDayEight();
+		
+		solveDayNine();
 	}
 	
 	private static void solveDayThree() {
@@ -67,5 +71,21 @@ public class Main {
 		
 		System.out.println(StepReader.findOrderOfSteps(inputString));
 		System.out.println(StepReader.findExecutionTime(inputString, 60, 5));
+	}
+	
+	private static void solveDayEight() {
+		System.out.println("Day Eight");
+		
+		List<Integer> inputStringAsInt = Arrays.asList(Input.DAY_EIGHT.split(" ")).stream().map(x -> Integer.parseInt(x)).collect(Collectors.toList());
+		
+		System.out.println(TreeReader.sumMetadataEntries(inputStringAsInt));
+		System.out.println(TreeReader.findRootNodeValue(inputStringAsInt));
+	}
+	
+	private static void solveDayNine() {
+		System.out.println("Day Nine");
+		
+		System.out.println(MarbleGame.findHighestScore(455, 71223));
+		System.out.println(MarbleGame.findHighestScore(455, 7122300));
 	}
 }
