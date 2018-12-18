@@ -19,11 +19,11 @@ public class MarbleGameTest {
 		"21, 6111, 54718",
 		"30, 5807, 37305"
 		})
-	public void findHighestScore(int playerCount, int highestMarble, int expected) {
+	public void findHighestScore(int playerCount, int highestMarble, Long expected) {
 		// arrange
 		
 		// act
-		int result = MarbleGame.findHighestScore(playerCount, highestMarble);
+		Long result = MarbleGame.findHighestScore(playerCount, highestMarble);
 		
 		// assert
 		assertEquals(expected, result);

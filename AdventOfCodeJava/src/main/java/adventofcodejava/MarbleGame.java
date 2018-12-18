@@ -6,23 +6,24 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import adventofcodejava.entity.MarbleGamePlace;
+
 public class MarbleGame {
-	public static int findHighestScore(int playerCount, int highestMarble) {
-		List<Integer> placedMarbles = new ArrayList<>();
-		List<Integer> scores = new ArrayList<>();
+	public static Long findHighestScore(int playerCount, int highestMarble) {
+		MarbleGamePlace currentPlace = new MarbleGamePlace();
+		List<Long> scores = new ArrayList<>();
 		
 		for (int i = 0; i < playerCount; i++) {
-			scores.add(0);
+			scores.add(0L);
 		}
 		
 		int currentPlayer = 0;
 		
-		int currentIndex = 0;
-		for (int i = 0; i <= highestMarble; i++) {
+		for (int i = 1; i <= highestMarble; i++) {
 			if (i == 0 || i % 23 != 0) {
-				currentIndex = getIndexAfterNormalPlay(placedMarbles, currentIndex, i);
+				currentPlace = getCurrentPlaceAfterNormalPlay(currentPlace, i);
 			} else {
-				currentIndex = getIndexAfterScoringPlay(placedMarbles, scores, currentPlayer, currentIndex, i);
+				currentPlace = getIndexAfterScoringPlay(currentPlace, scores, currentPlayer, i);
 			}
 			
 			currentPlayer = currentPlayer == playerCount - 1 ? 0 : currentPlayer + 1;
@@ -31,35 +32,24 @@ public class MarbleGame {
 		return scores.stream().max(Comparator.naturalOrder()).get();
 	}
 
-	private static int getIndexAfterScoringPlay(List<Integer> placedMarbles, List<Integer> scores, int currentPlayer,
-			int currentIndex, int i) {
-		scores.set(currentPlayer, scores.get(currentPlayer) + i);
+	private static MarbleGamePlace getIndexAfterScoringPlay(MarbleGamePlace currentPlace, List<Long> scores, int currentPlayer,
+			int currentValue) {
+		scores.set(currentPlayer, scores.get(currentPlayer) + currentValue);
 		
-		int desiredIndex = currentIndex - 7;
-		int actualIndex = desiredIndex > 0 ? desiredIndex : desiredIndex + placedMarbles.size();
+		MarbleGamePlace scoringPlace = currentPlace.getLeft(7);
+		scores.set(currentPlayer, scores.get(currentPlayer) + scoringPlace.getValue());
 		
-		scores.set(currentPlayer, scores.get(currentPlayer) + placedMarbles.get(actualIndex));
+		MarbleGamePlace newPlace = scoringPlace.getRight(1);
 		
-		placedMarbles.remove(actualIndex);
-		return actualIndex;
+		scoringPlace.remove();
+		return newPlace;
 	}
 
-	private static int getIndexAfterNormalPlay(List<Integer> placedMarbles, int currentIndex, int i) {
-		int desiredIndex = currentIndex + 2;
+	private static MarbleGamePlace getCurrentPlaceAfterNormalPlay(MarbleGamePlace currentPlace, int currentValue) {
+		MarbleGamePlace nextPlace = currentPlace.getRight(1);
 		
-		int maxIndex = CollectionUtils.isEmpty(placedMarbles) ? 0 : placedMarbles.size() - 1;
-		int actualIndex;
-		if (CollectionUtils.isEmpty(placedMarbles)) {
-			actualIndex = 0;
-		} else if (desiredIndex > maxIndex) {
-			int diff = desiredIndex - maxIndex;
-			actualIndex = diff == 1 ? 0 : 1;
-		} else {
-			actualIndex = desiredIndex;
-		}
+		nextPlace.insertRight(currentValue);
 		
-		placedMarbles.add(actualIndex, i);
-		currentIndex = actualIndex;
-		return currentIndex;
+		return nextPlace.getRight(1);
 	}
 }
