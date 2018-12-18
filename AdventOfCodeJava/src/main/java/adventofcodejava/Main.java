@@ -21,6 +21,8 @@ public class Main {
 		solveDayEight();
 		
 		solveDayNine();
+		
+		solveDayTen();
 	}
 	
 	private static void solveDayThree() {
@@ -87,5 +89,12 @@ public class Main {
 		
 		System.out.println(MarbleGame.findHighestScore(455, 71223));
 		System.out.println(MarbleGame.findHighestScore(455, 7122300));
+	}
+	
+	private static void solveDayTen() {
+		System.out.println("Day Ten");
+		
+		List<String> inputList = Arrays.asList(Input.DAY_TEN.split(";"));
+		SignalReader.readSignal(inputList);
 	}
 }
