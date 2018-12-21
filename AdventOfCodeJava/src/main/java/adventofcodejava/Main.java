@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -22,7 +24,11 @@ public class Main {
 		
 		solveDayNine();
 		
-		solveDayTen();
+		System.out.println("Day Ten Disabled - Requires Manual Input");
+		//solveDayTen();
+		
+		System.out.println("Day Eleven Disabled - Needs Optimized");
+		//solveDayEleven();
 	}
 	
 	private static void solveDayThree() {
@@ -96,5 +102,15 @@ public class Main {
 		
 		List<String> inputList = Arrays.asList(Input.DAY_TEN.split(";"));
 		SignalReader.readSignal(inputList);
+	}
+	
+	private static void solveDayEleven() {
+		System.out.println("Day Eleven");
+		
+		//Point partOneResult = PowerCellLocator.findCellChunkWithLargestPowerFixedSize(1955);
+		//System.out.println(partOneResult.x + ", " + partOneResult.y);
+		
+		Pair<Point, Integer> partTwoResult = PowerCellLocator.findCellChunkWithLargestPowerNoLimit(1955);
+		System.out.println(partTwoResult.getLeft().x + ", " + partTwoResult.getLeft().y + ", " + partTwoResult.getRight());
 	}
 }
