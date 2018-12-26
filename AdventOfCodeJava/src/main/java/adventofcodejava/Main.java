@@ -29,6 +29,8 @@ public class Main {
 		
 		System.out.println("Day Eleven Disabled - Needs Optimized");
 		//solveDayEleven();
+		
+		solveDayTwelve();
 	}
 	
 	private static void solveDayThree() {
@@ -112,5 +114,15 @@ public class Main {
 		
 		Pair<Point, Integer> partTwoResult = PowerCellLocator.findCellChunkWithLargestPowerNoLimit(1955);
 		System.out.println(partTwoResult.getLeft().x + ", " + partTwoResult.getLeft().y + ", " + partTwoResult.getRight());
+	}
+	
+	private static void solveDayTwelve() {
+		System.out.println("Day Twelve");
+		
+		List<String> rules = Arrays.asList(Input.DAY_TWELVE_RULES.split(";"));
+		
+		System.out.println(GameOfPlantLife.getSumOfPotsContainingPlants(Input.DAY_TWELVE_INITIAL_STATE, rules, 20L));
+		
+		System.out.println(GameOfPlantLife.getSumOfPotsContainingPlants(Input.DAY_TWELVE_INITIAL_STATE, rules, 50000000000L));
 	}
 }
