@@ -31,6 +31,11 @@ public class Main {
 		//solveDayEleven();
 		
 		solveDayTwelve();
+		
+		System.out.println("Day Thirteen Disabled - Optimize");
+		//solveDayThirteen();
+		
+		solveDayFourteen();
 	}
 	
 	private static void solveDayThree() {
@@ -124,5 +129,23 @@ public class Main {
 		System.out.println(GameOfPlantLife.getSumOfPotsContainingPlants(Input.DAY_TWELVE_INITIAL_STATE, rules, 20L));
 		
 		System.out.println(GameOfPlantLife.getSumOfPotsContainingPlants(Input.DAY_TWELVE_INITIAL_STATE, rules, 50000000000L));
+	}
+	
+	private static void solveDayThirteen() {
+		System.out.println("Day Thirteen");
+		
+		Point partOneResult = CartRunner.findFirstCollision(Input.DAY_THIRTEEN.replace(";", "\r\n")); 
+		System.out.println(partOneResult.x + "," + -partOneResult.y);
+		
+		Point partTwoResult = CartRunner.findLastCartAfterAllCollisions(Input.DAY_THIRTEEN.replace(";", "\r\n")); 
+		System.out.println(partTwoResult.x + "," + -partTwoResult.y);
+	}
+	
+	private static void solveDayFourteen() {
+		System.out.println("Day Fourteen");
+		
+		System.out.println(RecipeScorer.scoresOfNextTenRecipes(825401));
+		System.out.println("Part 2 Disabled - Needs extra memory allocation");
+		//System.out.println(RecipeScorer.stepsToDesiredScore("825401"));
 	}
 }
