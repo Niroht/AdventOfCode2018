@@ -36,6 +36,8 @@ public class Main {
 		//solveDayThirteen();
 		
 		solveDayFourteen();
+		
+		solveDayFifteen();
 	}
 	
 	private static void solveDayThree() {
@@ -147,5 +149,14 @@ public class Main {
 		System.out.println(RecipeScorer.scoresOfNextTenRecipes(825401));
 		System.out.println("Part 2 Disabled - Needs extra memory allocation");
 		//System.out.println(RecipeScorer.stepsToDesiredScore("825401"));
+	}
+	
+	private static void solveDayFifteen() {
+		System.out.println("Day Fifteen");
+		
+		String input = Input.DAY_FIFTEEN.replace(";", System.lineSeparator());
+		
+		System.out.println(Combat.sumOfRoundsAndHitPoints(input));
+		System.out.println(Combat.minimumPowerForElfVictory(input));
 	}
 }
